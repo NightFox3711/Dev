@@ -1,13 +1,13 @@
-package com.example.demo;
+package com.tienda.Tienda;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PrimerVezApplication {
+public class TiendaApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PrimerVezApplication.class, args);
+		SpringApplication.run(TiendaApplication.class, args);
 	}
 
 }
