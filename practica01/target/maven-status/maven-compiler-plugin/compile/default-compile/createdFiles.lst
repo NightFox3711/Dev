@@ -1,6 +1,0 @@
-com\practica01\Practica01Application.class
-com\practica01\service\impl\ArbolServiceImpl.class
-com\practica01\dao\ArbolDao.class
-com\practica01\controller\ArbolController.class
-com\practica01\service\ArbolService.class
-com\practica01\domain\Arbol.class
