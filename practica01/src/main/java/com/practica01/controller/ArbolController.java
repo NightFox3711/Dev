@@ -33,9 +33,15 @@ public class ArbolController {
         return "/arbol/modifica";
     }
 
-    @GetMapping("/eliminar/{idCategoria}")
+    @GetMapping("/eliminar/{idArbol}")
     public String arbolEliminar(Arbol arbol) {
         arbolService.delete(arbol);
+        return "redirect:/arbol/listado";
+    }
+    
+    @PostMapping("/guardar")
+    public String arbolGuardar(Arbol arbol){
+        arbolService.save(arbol);
         return "redirect:/arbol/listado";
     }
 
