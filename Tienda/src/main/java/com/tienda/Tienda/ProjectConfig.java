@@ -1,4 +1,4 @@
-package com.tienda;
+package com.tienda.Tienda;
 
 import java.util.Locale;
 import org.springframework.context.MessageSource;
@@ -48,5 +48,7 @@ public class ProjectConfig implements WebMvcConfigurer {
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
+    
+    
 }
 
