@@ -15,8 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @Slf4j
-@RequestMapping("/producto")public class productoController {
-
+@RequestMapping("/producto")
+public class productoController {
+    
     @Autowired
     private productoService productoService; 
 
@@ -27,7 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
         model.addAttribute("totalproductos", productos.size());
         return "/producto/listado";
     }
-
+    
     @GetMapping("/nuevo")
     public String productoNuevo(producto producto) {
         return "/producto/modifica";
@@ -35,7 +36,7 @@ import org.springframework.web.multipart.MultipartFile;
 
     @Autowired
     private FirebaseStorageServiceImpl firebaseStorageService;
-
+    
     @PostMapping("/guardar")
     public String productoGuardar(producto producto,
             @RequestParam("imagenFile") MultipartFile imagenFile) {   // Donde digo ocupo que usted me de una imagen para guardarla     
@@ -43,8 +44,8 @@ import org.springframework.web.multipart.MultipartFile;
             productoService.save(producto);
             producto.setRutaImagen(
                     firebaseStorageService.cargaImagen(
-                            imagenFile,
-                            "producto",
+                            imagenFile, 
+                            "producto", 
                             producto.getIdproducto()));
         }
         productoService.save(producto);
@@ -59,7 +60,7 @@ import org.springframework.web.multipart.MultipartFile;
 
     @GetMapping("/modifica/{idproducto}")
     public String productoModificar(producto producto, Model model) {
-        producto = productoService.getproducto(producto);
+        producto= productoService.getproducto(producto);
         model.addAttribute("producto", producto);
         return "/producto/modifica";
     }

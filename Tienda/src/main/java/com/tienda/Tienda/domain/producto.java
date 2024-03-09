@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import lombok.Data;
 
-
-
 @Data
 @Entity
 @Table(name = "producto")
@@ -40,5 +38,6 @@ public class producto implements Serializable {
         this.existencias = existencias;
         this.activo = activo;
     }
-}
 
+
+}
