@@ -1,23 +1,23 @@
 package com.tienda.Tienda.service.impl;
 
-import com.tienda.Tienda.dao.CategoriaDao;
-import com.tienda.Tienda.domain.Categoria;
-import com.tienda.Tienda.service.CategoriaService;
+import com.tienda.Tienda.dao.productoDao;
+import com.tienda.Tienda.domain.producto;
+import com.tienda.Tienda.service.productoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class CategoriaServiceImpl implements CategoriaService {
+public class productoServiceImpl implements productoService {
     
     @Autowired
-    private CategoriaDao categoriaDao;
+    private productoDao productoDao;
 
     @Override
     @Transactional(readOnly=true)
-    public List<Categoria> getCategorias(boolean activos) {
-        var lista=categoriaDao.findAll(); //Se va a guardar en esta lista
+    public List<producto> getproductos(boolean activos) {
+        var lista=productoDao.findAll(); //Se va a guardar en esta lista
         if (activos) {
            lista.removeIf(e -> !e.isActivo()); //Va a remover de la lista lo que sea diferente de activos 
         }
@@ -26,20 +26,20 @@ public class CategoriaServiceImpl implements CategoriaService {
     
     @Override
     @Transactional(readOnly = true)
-    public Categoria getCategoria(Categoria categoria) {
-        return categoriaDao.findById(categoria.getIdCategoria()).orElse(null);
+    public producto getproducto(producto producto) {
+        return productoDao.findById(producto.getIdproducto()).orElse(null);
     }
 
     @Override
     @Transactional //Metodo de tipo transaccional porque le voy a preguntar a la bd sobre la info si existe me la devuelve
-    public void save(Categoria categoria) {
-        categoriaDao.save(categoria);
+    public void save(producto producto) {
+        productoDao.save(producto);
     }
 
     @Override
     @Transactional
-    public void delete(Categoria categoria) {
-        categoriaDao.delete(categoria);
+    public void delete(producto producto) {
+        productoDao.delete(producto);
     }
 
 }

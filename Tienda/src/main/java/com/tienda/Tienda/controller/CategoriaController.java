@@ -17,18 +17,18 @@ import org.springframework.web.multipart.MultipartFile;
 @Slf4j
 @RequestMapping("/categoria")
 public class CategoriaController {
-    
-    @Autowired
-    private CategoriaService categoriaService;
 
-    @GetMapping("/listado")
+    @Autowired
+    private CategoriaService categoriaService; 
+
+    @GetMapping("/listado") //
     public String inicio(Model model) {
         var categorias = categoriaService.getCategorias(false);
-        model.addAttribute("categorias", categorias);
+        model.addAttribute("categorias", categorias); // 
         model.addAttribute("totalCategorias", categorias.size());
         return "/categoria/listado";
     }
-    
+
     @GetMapping("/nuevo")
     public String categoriaNuevo(Categoria categoria) {
         return "/categoria/modifica";
@@ -36,16 +36,16 @@ public class CategoriaController {
 
     @Autowired
     private FirebaseStorageServiceImpl firebaseStorageService;
-    
+
     @PostMapping("/guardar")
     public String categoriaGuardar(Categoria categoria,
-            @RequestParam("imagenFile") MultipartFile imagenFile) {        
+            @RequestParam("imagenFile") MultipartFile imagenFile) {   // Donde digo ocupo que usted me de una imagen para guardarla     
         if (!imagenFile.isEmpty()) {
             categoriaService.save(categoria);
             categoria.setRutaImagen(
                     firebaseStorageService.cargaImagen(
-                            imagenFile, 
-                            "categoria", 
+                            imagenFile,
+                            "categoria",
                             categoria.getIdCategoria()));
         }
         categoriaService.save(categoria);
@@ -59,14 +59,10 @@ public class CategoriaController {
     }
 
     @GetMapping("/modifica/{idCategoria}")
-    public String categoriaModifica(Categoria categoria, Model model) {
+    public String categoriaModificar(Categoria categoria, Model model) {
         categoria = categoriaService.getCategoria(categoria);
         model.addAttribute("categoria", categoria);
         return "/categoria/modifica";
     }
-    
-    
+
 }
-
-
-

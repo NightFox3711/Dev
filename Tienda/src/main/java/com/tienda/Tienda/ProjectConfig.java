@@ -1,7 +1,10 @@
 package com.tienda.Tienda;
+// Configura la internacionalidazacion en la aplicacion Spring, y permite la resolucion y cambio de idiomas en funcion de las solicitudes del usuario mediante un message source, 
+//para acceder a los mensajes internazlidados en el codigo 
 
 import java.util.Locale;
 import org.springframework.context.MessageSource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
@@ -12,12 +15,14 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 @Configuration
+/*Se le dice que esto es una configuracion*/
+
 public class ProjectConfig implements WebMvcConfigurer {
 
-    // Configuración para la internacionalización
-
-    // Bean para definir el resolver de localidad (LocaleResolver)
+    /* Los siguientes métodos son para incorporar el tema de internacionalización en el proyecto */
+ /* localeResolver se utiliza para crear una sesión de cambio de idioma*/
     @Bean
+
     public LocaleResolver localeResolver() {
         var slr = new SessionLocaleResolver();
         slr.setDefaultLocale(Locale.getDefault());
@@ -26,21 +31,21 @@ public class ProjectConfig implements WebMvcConfigurer {
         return slr;
     }
 
-    // Bean para definir el interceptor de cambio de localidad (LocaleChangeInterceptor)
+    /* localeChangeInterceptor se utiliza para crear un interceptor de cambio de idioma*/
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
         var lci = new LocaleChangeInterceptor();
         lci.setParamName("lang");
+        /* Nos trae informacion */
         return lci;
     }
 
-    // Método para agregar el interceptor al registro de interceptores
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(localeChangeInterceptor());
+    public void addInterceptors(InterceptorRegistry registro) {
+        registro.addInterceptor(localeChangeInterceptor());
     }
 
-    // Bean para definir el origen de mensajes (MessageSource) para la internacionalización
+//Bean para poder acceder a los Messages.properties en código...  
     @Bean("messageSource")
     public MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
@@ -48,7 +53,4 @@ public class ProjectConfig implements WebMvcConfigurer {
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
-    
-    
 }
-
