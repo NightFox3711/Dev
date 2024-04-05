@@ -1,9 +1,9 @@
-package com.tienda.Tienda.controller;
+package com.tienda.Tienda.Tienda.controller;
 
 import com.tienda.Tienda.domain.Categoria;
-import com.tienda.Tienda.domain.producto;
+import com.tienda.Tienda.domain.Producto;
 import com.tienda.Tienda.service.CategoriaService;
-import com.tienda.Tienda.service.productoService;
+import com.tienda.Tienda.service.ProductoService;
 import com.tienda.Tienda.service.impl.FirebaseStorageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,48 +19,48 @@ import org.springframework.web.multipart.MultipartFile;
 public class PruebasController {
 
     @Autowired
-    private productoService productoService;
+    private ProductoService productoService;
 
     @Autowired
     private CategoriaService categoriaService;
 
     @GetMapping("/listado")
     public String listado(Model model) {
-        var productos = productoService.getproductos(false);
+        var productos = productoService.getProductos(false);
         var categorias = categoriaService.getCategorias(false);
         model.addAttribute("productos", productos);
         model.addAttribute("categorias", categorias);
-        model.addAttribute("totalproductos", productos.size());
+        model.addAttribute("totalProductos", productos.size());
         return "/pruebas/listado";
     }
 
     @GetMapping("/listado/{idCategoria}")
     public String productoModificar(Model model, Categoria categoria) {
-        var productos = categoriaService.getCategoria(categoria).getproductos();
+        var productos = categoriaService.getCategoria(categoria).getProductos();
         var categorias = categoriaService.getCategorias(false);
         model.addAttribute("productos", productos);
         model.addAttribute("categorias", categorias);
-        model.addAttribute("totalproductos", productos.size());
+        model.addAttribute("totalProductos", productos.size());
         return "/pruebas/listado";
     }
     
      //Los métodos siguientes son para la prueba de consultas ampliadas
     @GetMapping("/listado2")
     public String listado2(Model model) {
-        var productos = productoService.getproductos(false);
+        var productos = productoService.getProductos(false);
         model.addAttribute("productos", productos);
-        model.addAttribute("totalproductos", productos.size());
+        model.addAttribute("totalProductos", productos.size());
         return "/pruebas/listado2";
     }
 
     @PostMapping("/query1")
     public String consultaQuery1(@RequestParam(value = "precioInf") double precioInf,
             @RequestParam(value = "precioSup") double precioSup, Model model) {
-        var productos = productoService.buscaproductosPorPrecioEntre(precioInf, precioSup);
+        var productos = productoService.buscaProductosPorPrecioEntre(precioInf, precioSup);
         model.addAttribute("productos", productos);
         model.addAttribute("precioInf", precioInf);
         model.addAttribute("precioSup", precioSup);
-        model.addAttribute("totalproductos", productos.size());
+        model.addAttribute("totalProductos", productos.size());
         return "/pruebas/listado2";
     }
     
@@ -71,7 +71,7 @@ public class PruebasController {
         model.addAttribute("productos", productos);
         model.addAttribute("precioInf", precioInf);
         model.addAttribute("precioSup", precioSup);
-        model.addAttribute("totalproductos", productos.size());
+        model.addAttribute("totalProductos", productos.size());
         return "/pruebas/listado2";
     }
     
@@ -82,7 +82,7 @@ public class PruebasController {
         model.addAttribute("productos", productos);
         model.addAttribute("precioInf", precioInf);
         model.addAttribute("precioSup", precioSup);
-        model.addAttribute("totalproductos", productos.size());
+        model.addAttribute("totalProductos", productos.size());
         return "/pruebas/listado2";
     }
 }
